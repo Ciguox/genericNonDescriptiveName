@@ -1,0 +1,1 @@
+This repo is a my own personal junkyard, ill be putting a random asortment of projjects that could made my portfolio.
