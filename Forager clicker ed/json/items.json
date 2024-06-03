@@ -1,0 +1,12 @@
+{
+    "items": {
+        "stone_sword": {
+            "id": "stone_sword",
+            "image": "./img/items/stone_sword.png"
+        },
+        "wood": {
+            "id": "wood",
+            "image": "./img/items/wood.png"
+        }
+    }
+}

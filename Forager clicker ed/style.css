@@ -1,0 +1,165 @@
+:root{
+    --tile-size: 5em;
+}
+
+body{
+    margin: 0;
+}
+
+#root{
+    background-color: #adf;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/*Left UI menu in game*/
+.left-menu{
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    top: 1em;
+    left: 1em;
+}
+
+.floor{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--tile-size);
+    height: var(--tile-size);
+}
+.tile{
+    width: var(--tile-size);
+    height: var(--tile-size);
+    
+}
+.grass{
+    background-color: #4b4;
+    border: 1px solid #5a5;
+    box-shadow: #873 0 2em 0;
+}
+.water{
+    
+}
+#game-area{
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: center;
+    align-items: center;
+}
+.fullscren{
+    height: 100vh;
+    width: 100vw;
+}
+.island{
+    display: grid;
+    grid-template-columns: repeat(8, 5em);
+    grid-template-rows: repeat(8, 5em);
+
+    /*Debug*/
+    outline: 1px solid black;
+}
+
+#active-inventory{
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(150, 150, 150, 0.5));
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    margin: .5em;
+    border: 3px solid rgba(0 ,0 ,0 , 0.5);
+}
+
+.inventory{
+    position: absolute;
+    top: 1em;
+    right: 30%;
+    left: 30%;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.5), rgba(150, 150, 150, 0.5));
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5em;
+    margin: .5em;
+    border: 3px solid rgba(0 ,0 ,0 , 0.5);
+}
+
+.slot{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    height: 3em;
+    width: 3em;
+    margin: 0.5em;
+    padding: 0.5em;
+    border: 3px solid black;
+}
+.slot > p{
+    position: relative;
+    text-align: right;
+    left: 1.5em;
+}
+.slot > img{
+    position: relative;
+    top: 1.5em;
+    height: 100%;
+    width: 100%;
+}
+.selected{
+    outline: 0.3rem solid #ffa;
+}
+
+button{
+    font-size: 1.5em;
+    padding: 0.5em;
+    border: 3px solid black;
+    border-radius: 0.5em;
+}
+.hitted{
+    animation: hit 0.2s;
+}
+.destroyed{
+    animation: destroy 0.2s;
+}
+@keyframes hit{
+    0%{
+        transform: scale(1) rotate(0deg);
+        filter: invert(0) brightness(0.5);
+    }
+    25%{
+        transform: scale(1.5) rotate(-15deg);
+    }
+    50%{
+        transform: scale(1.5) rotate(15deg);
+        color: aliceblue;
+        filter:  brightness(0) invert(1);
+    }
+    100%{
+        transform: scale(1) rotate(0deg);
+        filter: invert(0) brightness(0.5);
+    }
+}
+@keyframes destroy{
+    0%{
+        transform: rotate(0deg);
+        filter: invert(0) brightness(0.5);
+    }
+    
+    100%{
+        transform: rotate(90deg);
+        filter:  brightness(0) invert(1);
+    }
+}
+
+.hidden{
+    display: none;
+}
