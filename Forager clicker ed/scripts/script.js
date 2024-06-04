@@ -1,4 +1,5 @@
 import Inventory from "./Inventory.js";
+import Island from "./Island.js";
 /*Declared Constants*/
 const optionMenuBtn = document.getElementById("options-menu-button");
 const options = document.getElementById("options-menu");
@@ -7,8 +8,12 @@ const mainMenu = document.getElementById("main-menu");
 const startGame = document.getElementById("start-game-button");
 
 const gameArea = document.getElementById("game-area");
+const islandArea = document.getElementById("islands");
 const ui = document.getElementById("ui");
 const inventory = new Inventory();
+
+let islandList = [];
+
 let items;
 fetch("./json/items.json")
     .then((response) => response.json())
@@ -70,42 +75,34 @@ function setGameButtons() {
         }
     })
 
+    const islandExpanderBtn = document.createElement("button");
+    islandExpanderBtn.id = "island-expander-button";
+    islandExpanderBtn.textContent = "Expandir";
+    islandExpanderBtn.addEventListener("click", () => {
+        expandIslands();
+        
+    })
+    
     leftButtons.appendChild(optionMenuBtn);
     leftButtons.appendChild(inventoryBtn);
-    gameArea.appendChild(leftButtons);
+    leftButtons.appendChild(islandExpanderBtn);
+    ui.appendChild(leftButtons);
 };
 /*Set game area: set the game area*/
 function setGameArea() {
     gameArea.classList.add("fullscren");
 
     setGameButtons();
-    generateIsland();
-    populateIsland();
+    islandArea.appendChild(generateIsland());
 
     inventory.setInventory();
     setUi();
 }
 /*Generate island: Generate 8x8 grid of tiles*/
 function generateIsland() {
-    const island = document.createElement("div");
-    island.classList.add("island");
-    for (let i = 0; i < 64; i++) {
-        const floor = document.createElement("div");
-        floor.classList.add("floor");
-
-        const tile = document.createElement("div");
-        tile.classList.add("tile");
-
-        if (Math.random() > 0.5) {
-            tile.classList.add("grass");
-        } else {
-            tile.classList.add("water");
-        }
-
-        floor.appendChild(tile);
-        island.appendChild(floor);
-    }
-    gameArea.appendChild(island);
+    islandList.push(new Island());
+    adjustIslands();
+    return islandList[islandList.length - 1].islandView();
 }
 
 function setUi() {
@@ -149,14 +146,25 @@ function elementSpawner(entity) {
     })
     return element;
 }
-
+/*Reformular de forma que no repopule todas las islas cada vez que es llamado,
+ se puede hacer mas concreto populando un tile o una lista de elementos pasada como parametro*/
 function populateIsland() {
     const grassTile = document.getElementsByClassName("grass");
     for (let i = 0; i < grassTile.length; i++) {
-        if (Math.random() > 0.5) {
+        if (Math.random() > 0.5 && grassTile[i].children.length < 1) {
             grassTile[i].appendChild(elementSpawner(entities.tree));
         }
     }
+}
+
+function expandIslands(){
+    islandArea.appendChild(generateIsland());
+    populateIsland();
+}
+function adjustIslands(){
+    const ratio = Math.round(1/islandList.length**2);
+    console.log(`grid-template-columns: repeat(${ratio}, calc(${64}*5em)); grid-template-rowsrepeat(${ratio}, calc(${64}*5em));`)
+    islandArea.style = `grid-template-columns: repeat(${ratio}, calc(${8}*5em)); grid-template-rowsrepeat(${ratio}, calc(${8}*5em));`;
 }
 
 

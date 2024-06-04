@@ -1,6 +1,7 @@
 
 export default class Inventory {
     slots = [];
+    /*list of all the items on the game*/
     items = {};
 
     constructor() {
@@ -14,7 +15,6 @@ export default class Inventory {
             }).then(() => {
                 this.addToInventory("stone_sword");
             }).catch((err) => console.log(err));
-
     }
 
     //setInventory: Crea la UI de inventario
